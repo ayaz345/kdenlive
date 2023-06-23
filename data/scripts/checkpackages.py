@@ -29,13 +29,8 @@ if '--help' in sys.argv:
     print_help()
     sys.exit()
 
-required = set()
-
-for arg in sys.argv[1:]:
-    if not arg.startswith("--"):
-        required.add(arg)
-
-if len(required) == 0:
+required = {arg for arg in sys.argv[1:] if not arg.startswith("--")}
+if not required:
     print_help()
     sys.exit("Error: You need to provide at least one package name")
 

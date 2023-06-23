@@ -33,11 +33,10 @@ def avoid_fp16(device):
         return True
 
 def ffmpeg_path():
-    if sys.platform == 'darwin':
-        from os.path import abspath, dirname, join
-        return abspath(join(dirname(__file__), '../../MacOS/ffmpeg'))
-    else:
+    if sys.platform != 'darwin':
         return 'ffmpeg'
+    from os.path import abspath, dirname, join
+    return abspath(join(dirname(__file__), '../../MacOS/ffmpeg'))
 
 
 def extract_zone(source, outfile, in_point, out_point):
@@ -89,7 +88,7 @@ def main():
         duration = end_time - start_time
         timestamp = f"{start_time:.3f} - {end_time:.3f}"
         text = result["segments"][i]["text"]
-        res = '[' + str(start_time) + '>' + str(end_time) + ']' + text + '\n'
+        res = f'[{str(start_time)}>{str(end_time)}]{text}' + '\n'
         sys.stdout.buffer.write(res.encode('utf-8'))
 
     sys.stdout.flush()

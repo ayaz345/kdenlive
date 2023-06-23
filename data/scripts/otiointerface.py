@@ -23,12 +23,8 @@ if '--help' in sys.argv:
     print_help()
     sys.exit()
 
-use_read = False
-use_write = False
-if '--export-suffixes' in sys.argv:
-    use_write = True
-if '--import-suffixes' in sys.argv:
-    use_read = True
+use_write = '--export-suffixes' in sys.argv
+use_read = '--import-suffixes' in sys.argv
 if not use_read and not use_write:
     print_help()
     sys.exit("Error: You need to provide at least one valid option")
